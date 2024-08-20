@@ -2,10 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 @layer utilities {
-    .main-font {
-      font-family: 'Playfair display'!important;
-    }
-    .body-font {
-        font-family: 'Sarabun'!important;
-      }
+  .main-font {
+    font-family: "Playfair display" !important;
   }
+  .body-font {
+    font-family: "Sarabun" !important;
+  }
+}
+
+input::placeholder {
+  color: #636363 !important;
+}
