@@ -16,3 +16,20 @@ input::placeholder {
 body {
   overflow-x: hidden !important;
 }
+
+.custom-bullets {
+  list-style-type: none; /* Remove default bullets */
+  padding: 0; /* Remove padding */
+}
+
+.custom-bullets li {
+  position: relative; /* Positioning for the custom bullet */
+  padding-left: 20px; /* Space for the custom bullet */
+}
+
+.custom-bullets li::before {
+  content: '🏪'; /* Custom bullet character */
+  position: absolute; /* Position it absolutely */
+  left: 0; /* Align to the left */
+  color: #5a7ffa; /* Color of the custom bullet */
+}

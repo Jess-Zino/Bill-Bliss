@@ -13,7 +13,9 @@ function App() {
       <Route path="/register" element={<Register />}></Route>
       <Route path="/confirm" element={<Confirm />}></Route>
       <Route path="/vendorgroup" element={<VendorSelect />}></Route>
-      <Route path="/dashboard" element={<Dashboard/>}></Route>
+      <Route path="/dashboard" element={<Dashboard />}></Route>
+
+
     </Routes>
   );
 }

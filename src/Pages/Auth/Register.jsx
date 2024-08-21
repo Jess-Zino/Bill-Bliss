@@ -16,15 +16,14 @@ const Register = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
       if (!email || !password || !firstname || !lastname || !username) {
         notification.error({
-          message:"Empty Fields",
-          description:"All fields are required."
+          message: "Empty Fields",
+          description: "All fields are required.",
         });
         return;
       }
@@ -48,19 +47,25 @@ const Register = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Registration failed:", errorData);
-        setError(
-          "Registration failed. Please check your details and try again."
-        );
+        notification.error({
+          message: "Registration failed:",
+          description:
+            "Registration failed. Please check your details and try again.  " +
+            errorData,
+        });
+
         return;
       }
 
-      const data = await response.json();
-      console.log("Registration successful:", data);
+      notification.success({
+        message: "Registration successful:",
+      });
       navigate("/confirm");
-    } catch (err) {
-      console.error("Network error:", err);
-      setError("Network error. Please try again later.");
+    } catch {
+      notification.error({
+        message: "Network error",
+        description: "Please try again later.",
+      });
     }
   };
 
@@ -75,7 +80,6 @@ const Register = () => {
             </h1>
             <p className="body-font text-lg">Create Your Account</p>
           </div>
-          {error && <div className="error-message">{error}</div>}
           <Form
             name="Register"
             initialValues={{ remember: true }}

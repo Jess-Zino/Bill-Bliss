@@ -19,8 +19,8 @@ const Login = () => {
       // Validate input fields
       if (!email || !password) {
         notification.error({
-            message:"Login failed.",
-            description : "Both email and password are required."
+          message: "Login failed.",
+          description: "Both email and password are required.",
         });
         return;
       }
@@ -33,38 +33,36 @@ const Login = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email.trim(), 
-            password: password.trim(), 
+            email: email.trim(),
+            password: password.trim(),
           }),
         }
       );
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Login failed:", errorData);
         notification.error({
-            message:"Login failed.",
-            description : "Please check your credentials and try again."
+          message: "Login failed.",
+          description: `Please check your credentials and try again. ${errorData}`,
         });
         return;
       }
 
       const data = await response.json();
       notification.success({
-        message:"Login Successful",
-        description:"Welcome Back"
+        message: "Login Successful",
+        description: "Welcome Back",
       });
-      localStorage.setItem('username', data.username)
-      localStorage.setItem('user_id', data.user_id)
-      localStorage.setItem('token', data.access_token)
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("user_id", data.user_id);
+      localStorage.setItem("token", data.access_token);
       navigate("/vendorgroup");
       // Handle successful login (e.g., redirect or store token)
     } catch (err) {
-      console.error( err);
       notification.error({
-        message:"Network error",
-        description: err
-      })
+        message: "Network error",
+        description: err,
+      });
       setError("Login failed. Please check your credentials and try again.");
     }
   };
@@ -107,10 +105,7 @@ const Login = () => {
               </div>
             </Form.Item>
 
-            <Form.Item
-              name="password"
-             
-            >
+            <Form.Item name="password">
               <div className="flex flex-col items-start">
                 <Input.Password
                   className="w-[80vw] border-0 rounded-none border-black border-b body-font hover:border-black md:w-[60vw] lg:w-[35vw]"

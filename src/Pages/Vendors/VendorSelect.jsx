@@ -10,7 +10,6 @@ const VendorSelect = () => {
   const username = localStorage.getItem("username");
   const user_id = localStorage.getItem("user_id");
   const token = localStorage.getItem("token");
-  console.log(user_id, username);
 
   const [vendors, setVendors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,7 +38,6 @@ const VendorSelect = () => {
       } else {
         const data = await response.json();
         setVendors(data);
-        console.log(vendors);
       }
     } catch (err) {
       setError(err.message);
@@ -56,8 +54,9 @@ const VendorSelect = () => {
     fetchVendors(); // Refetch the vendors when a new vendor is created
   };
 
-  const handleVendorSelect = (vendor_id) => {
+  const handleVendorSelect = (vendor_id, vendor_name) => {
     localStorage.setItem("selected_vendor_id", vendor_id);
+    localStorage.setItem("selected_vendor_name", vendor_name)
     navigate("/dashboard");
   };
 
@@ -74,7 +73,7 @@ const VendorSelect = () => {
         {vendors.map((item) => (
           <Button
             key={item.vendor_id}
-            onClick={() => handleVendorSelect(item.vendor_id)}
+            onClick={() => handleVendorSelect(item.vendor_id, item.vendor_name)}
             className="flex flex-row justify-start lg:w-[30vw] h-fit p-4 text-2xl  md:text-lg focus:outline-none gap-1 w-[80vw] md:w-[60vw]"
           >
             <div>
