@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Drawer, Avatar, Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { EditOutlined, LoadingOutlined } from "@ant-design/icons";
 const DashProfileDrawer = () => {
   const username = localStorage.getItem("username");
   const user_id = localStorage.getItem("user_id");
@@ -99,7 +99,7 @@ const DashProfileDrawer = () => {
         )}
         <div className="flex flex-row items-center gap-5 mt-4">
           <Button type="text" className="bg-[#5a7ffa] text-white"> 
-            Edit Profile
+           <EditOutlined/> Edit Profile
           </Button>
         </div>
       </Drawer>
