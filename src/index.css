@@ -13,3 +13,6 @@
 input::placeholder {
   color: #636363 !important;
 }
+body {
+  overflow-x: hidden !important;
+}
