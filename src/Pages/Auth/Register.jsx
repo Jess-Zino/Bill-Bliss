@@ -1,5 +1,5 @@
 import loginImg from "../../images/register page.jpg";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, notification } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
@@ -22,7 +22,10 @@ const Register = () => {
   const handleSubmit = async () => {
     try {
       if (!email || !password || !firstname || !lastname || !username) {
-        setError("All fields are required.");
+        notification.error({
+          message:"Empty Fields",
+          description:"All fields are required."
+        });
         return;
       }
 
@@ -90,6 +93,7 @@ const Register = () => {
                 className="w-[80vw] body-font border-0 rounded-none border-black border-b hover:border-black md:w-[60vw] lg:w-[35vw] placeholder:text-[#2c2c2c]"
                 type="text"
                 size="large"
+                required
                 placeholder="First Name"
                 prefix={<UserOutlined className="text-[#5a7ff6]" />}
                 value={firstname}

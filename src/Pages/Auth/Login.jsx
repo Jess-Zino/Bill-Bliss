@@ -1,5 +1,5 @@
 import loginImg from "../../images/login.avif";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, notification } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
@@ -18,7 +18,10 @@ const Login = () => {
     try {
       // Validate input fields
       if (!email || !password) {
-        setError("Both email and password are required.");
+        notification.error({
+            message:"Login failed.",
+            description : "Both email and password are required."
+        });
         return;
       }
 
@@ -39,16 +42,29 @@ const Login = () => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Login failed:", errorData);
-        setError("Login failed. Please check your credentials and try again.");
+        notification.error({
+            message:"Login failed.",
+            description : "Please check your credentials and try again."
+        });
         return;
       }
 
       const data = await response.json();
-      console.log("Login successful:", data);
+      notification.success({
+        message:"Login Successful",
+        description:"Welcome Back"
+      });
+      localStorage.setItem('username', data.username)
+      localStorage.setItem('user_id', data.user_id)
+      localStorage.setItem('token', data.access_token)
       navigate("/vendorgroup");
       // Handle successful login (e.g., redirect or store token)
     } catch (err) {
-      console.error("Network error:", err);
+      console.error( err);
+      notification.error({
+        message:"Network error",
+        description: err
+      })
       setError("Login failed. Please check your credentials and try again.");
     }
   };
@@ -93,9 +109,7 @@ const Login = () => {
 
             <Form.Item
               name="password"
-              rules={[
-                { required: true, message: "Please input your Password!" },
-              ]}
+             
             >
               <div className="flex flex-col items-start">
                 <Input.Password
