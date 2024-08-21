@@ -23,9 +23,9 @@ const DashboardHeader = ({ collapse, iscollapsed }) => {
           type="text"
           icon={
             iscollapsed ? (
-              <MenuUnfoldOutlined className="text-[#5a7ff6]" />
+              <MenuUnfoldOutlined />
             ) : (
-              <MenuFoldOutlined />
+              <MenuFoldOutlined className="text-[#5a7ff6]" />
             )
           }
           onClick={collapse}
@@ -43,17 +43,16 @@ const DashboardHeader = ({ collapse, iscollapsed }) => {
       </div>
 
       <div className=" flex flex-row justify-around items-center gap-5">
-              <SettingOutlined className="text-[#5a7ff6] text-[20px]" />
-     
+        <SettingOutlined className="text-[#5a7ff6] text-[20px]" />
 
-              <Badge
-            dot
-            style={{
-              backgroundColor: "#52c41a",
-            }}
-          >
-            <DashProfileDrawer/>
-            </Badge>
+        <Badge
+          dot
+          style={{
+            backgroundColor: "#52c41a",
+          }}
+        >
+          <DashProfileDrawer />
+        </Badge>
       </div>
     </Header>
   );

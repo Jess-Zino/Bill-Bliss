@@ -10,6 +10,9 @@
   }
 }
 
+:root {
+  --colo: #f5f7fb;
+}
 input::placeholder {
   color: #636363 !important;
 }
@@ -18,18 +21,18 @@ body {
 }
 
 .custom-bullets {
-  list-style-type: none; /* Remove default bullets */
-  padding: 0; /* Remove padding */
+  list-style-type: none; 
+  padding: 0; 
 }
 
 .custom-bullets li {
-  position: relative; /* Positioning for the custom bullet */
-  padding-left: 20px; /* Space for the custom bullet */
+  position: relative; 
+  padding-left: 20px; 
 }
 
 .custom-bullets li::before {
-  content: '🏪'; /* Custom bullet character */
-  position: absolute; /* Position it absolutely */
-  left: 0; /* Align to the left */
-  color: #5a7ffa; /* Color of the custom bullet */
+  content: "🏪"; 
+  position: absolute; 
+  left: 0; 
+  color: #5a7ffa; 
 }

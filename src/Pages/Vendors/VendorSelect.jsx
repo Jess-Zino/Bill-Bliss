@@ -56,7 +56,7 @@ const VendorSelect = () => {
 
   const handleVendorSelect = (vendor_id, vendor_name) => {
     localStorage.setItem("selected_vendor_id", vendor_id);
-    localStorage.setItem("selected_vendor_name", vendor_name)
+    localStorage.setItem("selected_vendor_name", vendor_name);
     navigate("/dashboard");
   };
 

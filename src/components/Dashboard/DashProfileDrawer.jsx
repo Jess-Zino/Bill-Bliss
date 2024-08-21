@@ -98,8 +98,8 @@ const DashProfileDrawer = () => {
           </>
         )}
         <div className="flex flex-row items-center gap-5 mt-4">
-          <Button type="text" className="bg-[#5a7ffa] text-white"> 
-           <EditOutlined/> Edit Profile
+          <Button type="text" className="bg-[#5a7ffa] text-white">
+            <EditOutlined /> Edit Profile
           </Button>
         </div>
       </Drawer>
