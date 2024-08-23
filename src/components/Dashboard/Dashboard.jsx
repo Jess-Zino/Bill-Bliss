@@ -1,19 +1,16 @@
 import { useState } from "react";
 import { Layout } from "antd";
-import SideNav from "../../components/Dashboard/SideNav";
-import DashboardHeader from "../../components/Dashboard/DashboardHeader";
+import SideNav from "./SideNav";
+import DashboardHeader from "./DashboardHeader";
 import PropTypes from "prop-types";
-import { LogoutOutlined } from "@ant-design/icons";
+import Logout from "./Logout";
 const { Content, Footer, Sider } = Layout;
 const Dashboard = ({ dashContent }) => {
   const [collapsed, setCollapsed] = useState(false);
   const handleCollapse = () => {
     setCollapsed(!collapsed);
   };
-  const logout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
-  };
+
   return (
     <Layout hasSider className="bg-[#f5f7fb]">
       <Sider
@@ -34,13 +31,7 @@ const Dashboard = ({ dashContent }) => {
             <SideNav className="body-font" />
           </div>
 
-          <div
-            className="flex flex-row items-center justify-center p-3 gap-3 text-white font-semibold text-[12pt] hover:bg-[#5a7ffa]"
-            onClick={logout}
-          >
-            <LogoutOutlined className="text-white " />
-            Logout
-          </div>
+          <Logout />
         </div>
       </Sider>
       <Layout className="ml-[10px] bg-[#f5f7fb]">
@@ -48,7 +39,7 @@ const Dashboard = ({ dashContent }) => {
         <Content
           className="mt-[20px] mb-[10px]"
           style={{
-            marginLeft: !collapsed ? "0px" : "100px",
+            marginLeft: !collapsed ? "0px" : "0px",
           }}
         >
           {dashContent}

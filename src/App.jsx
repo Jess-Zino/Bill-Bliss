@@ -4,7 +4,7 @@ import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
 import VendorSelect from "./Pages/Vendors/VendorSelect";
 import Confirm from "./Pages/Auth/Confirm";
-import Dashboard from "./Pages/Dashboard/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 import Home from "./Pages/Dashboard/Pages/Home";
 import Organizations from "./Pages/Dashboard/Pages/Organizations";
 import Mail from "./Pages/Dashboard/Pages/Mail";

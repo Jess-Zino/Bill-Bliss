@@ -17,7 +17,7 @@ const DashboardHeader = ({ collapse, iscollapsed }) => {
     return newstr[0].toUpperCase() + newstr.slice(1);
   };
   return (
-    <Header className="p-0 bg-white flex flex-row justify-between pr-6 items-center">
+    <Header className="p-0 bg-white flex flex-row justify-between pr-6 items-center ">
       <div className="flex flex-row items-center">
         <Button
           type="text"
