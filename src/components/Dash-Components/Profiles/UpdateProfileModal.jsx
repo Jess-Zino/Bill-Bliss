@@ -9,10 +9,11 @@ import {
   ProjectOutlined,
 } from "@ant-design/icons";
 import currencies from "../../Currencies/currencies.json";
-import propTypes from "prop-types";
-const NewProfileModal = ({ text, onProfileCreated }) => {
+
+const NewProfileModal = ({text,  onProfileCreated }) => {
+
   const token = localStorage.getItem("token");
-  const vendor_id = localStorage.getItem("selected_vendor_id");
+  const vendor_id = localStorage.getItem('selected_vendor_id')
   const [profileName, setProfileName] = useState("");
   const [address, setAddress] = useState("");
   const [tinNumber, setTin] = useState("");
@@ -35,11 +36,11 @@ const NewProfileModal = ({ text, onProfileCreated }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://bliss-bliss.vercel.app/api/v1/profile",
+        'https://bliss-bliss.vercel.app/api/v1/profile',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
@@ -59,27 +60,26 @@ const NewProfileModal = ({ text, onProfileCreated }) => {
 
       if (response.status === 409) {
         notification.error({
-          message: "Profile already exists",
-          description:
-            "A Profile with this name already exists. Please choose a different name.",
+          message: 'Profile already exists',
+          description: 'A Profile with this name already exists. Please choose a different name.',
         });
         return;
       }
 
       if (!response.ok) {
-        throw new Error("Failed to create profile");
+        throw new Error('Failed to create profile');
       }
 
       const data = await response.json();
       notification.success({
-        message: "Profile created successfully",
+        message: 'Profile created successfully',
         description: `Profile created successfully: ${data.profile_name}`,
       });
 
       setOpen(false);
     } catch (err) {
       notification.error({
-        message: "Error Creating Profile",
+        message: 'Error Creating Profile',
         description: err.message,
       });
     } finally {
@@ -89,18 +89,14 @@ const NewProfileModal = ({ text, onProfileCreated }) => {
 
   const handleSubmit = () => {
     newProfile();
-    onProfileCreated();
+    onProfileCreated()
+    
   };
 
   return (
     <>
-      <Button
-        type="primary"
-        onClick={showLoading}
-        size="large"
-        className="w-fit"
-      >
-        {text ? "Create New Profile" : "Create Now"}
+      <Button type="primary" onClick={showLoading} size="large" className="w-fit">
+       {text?"Create New Profile":"Create Now"} 
       </Button>
       <Modal
         title={<p className="main-font text-xl font-black">New Profile</p>}
@@ -274,7 +270,3 @@ const NewProfileModal = ({ text, onProfileCreated }) => {
 };
 
 export default NewProfileModal;
-NewProfileModal.propTypes = {
-  text : propTypes.bool,
-   onProfileCreated : propTypes.func
-  }

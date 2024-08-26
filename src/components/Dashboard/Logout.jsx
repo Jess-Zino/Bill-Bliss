@@ -16,17 +16,17 @@ const Logout = () => {
           },
         }
       );
-
-      if (!response.ok) {
-        throw new Error("Logout failed");
-      }
-      if(response == 401){
+      if(response.status === 401){
         localStorage.removeItem("token");
         localStorage.removeItem("username");
         localStorage.removeItem("user_id");
   
         navigate("/");
       }
+      if (!response.ok) {
+        throw new Error("Logout failed");
+      }
+      
       localStorage.removeItem("token");
       localStorage.removeItem("username");
       localStorage.removeItem("user_id");

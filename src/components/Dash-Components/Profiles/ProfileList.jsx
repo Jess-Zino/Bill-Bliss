@@ -39,7 +39,7 @@ const ProfileList = ({ profiles, onProfileSelect }) => {
               key="list-vertical-message"
             />,
           ]}
-          onClick={() => onProfileSelect(item)} // Trigger the callback when a profile is clicked
+          onClick={() => onProfileSelect(item)} 
         >
           <List.Item.Meta
             title={
