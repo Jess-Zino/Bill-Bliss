@@ -19,7 +19,7 @@ const ProfileList = ({ profiles, onProfileSelect }) => {
       itemLayout="vertical"
       size="large"
       pagination={{
-        pageSize: 5,
+        pageSize: 3,
       }}
       dataSource={profiles || [{}]}
       renderItem={(item) => (

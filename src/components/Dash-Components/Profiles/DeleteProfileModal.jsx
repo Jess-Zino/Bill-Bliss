@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Button, Modal, notification } from "antd";
+import { Button, Modal, notification, Tooltip } from "antd";
 import propTypes from "prop-types";
+import { DeleteOutlined } from "@ant-design/icons";
 const DeleteProfileModal = ({ profileId, onProfileDeleted,profileName }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -46,6 +47,8 @@ const DeleteProfileModal = ({ profileId, onProfileDeleted,profileName }) => {
 
   return (
     <>
+    <Tooltip title=" Delete Profile" color="red">
+   
       <Button
         type="default"
         onClick={showLoading}
@@ -53,8 +56,11 @@ const DeleteProfileModal = ({ profileId, onProfileDeleted,profileName }) => {
         className="w-fit"
         danger
       >
-        Delete
+
+       
+       <DeleteOutlined/>
       </Button>
+      </Tooltip>
       <Modal
         title={<p className="main-font text-xl font-black">Delete This Profile</p>}
         footer={

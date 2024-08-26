@@ -3,6 +3,7 @@ import ProfileList from "../../components/Dash-Components/Profiles/ProfileList";
 import { Descriptions, Empty } from "antd";
 import NewProfileModal from "../../components/Dash-Components/Profiles/NewProfileModal";
 import DeleteProfileModal from "../../components/Dash-Components/Profiles/DeleteProfileModal";
+import UpdateProfileModal from "../../components/Dash-Components/Profiles/UpdateProfileModal";
 
 const Test = () => {
   const vendor_id = localStorage.getItem("selected_vendor_id");
@@ -56,6 +57,10 @@ const Test = () => {
   const handleProfileDeleted = () => {
     fetchUserDetails();
     setSelectedProfile(null); // Deselect the profile after deletion
+  };
+  const handleProfileUpdated = () => {
+    fetchUserDetails();
+    setSelectedProfile(null); 
   };
 
   const handleProfileSelect = (profile) => {
@@ -153,11 +158,14 @@ const Test = () => {
                        <h1 className="main-font font-black text-3xl">
                          Profile
                        </h1>
+                       <div className="flex flex-row gap-2">
+                        <UpdateProfileModal  onProfileUpdated={handleProfileUpdated} initialProfileData ={selectedProfile}/>
                        <DeleteProfileModal
                          profileId={selectedProfile.profile_id}
                          profileName={selectedProfile.profile_name}
                          onProfileDeleted={handleProfileDeleted}
                        />
+                       </div>
                      </div>
                    }
                    bordered
@@ -175,7 +183,7 @@ const Test = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white p-[20px] flex  rounded-lg w-[95%] md:w-[90%] lg:w-[35%] shadow-md hover:shadow-xl max-h-[80vh] flex-col">
+      <div className="bg-white p-[25px] flex  rounded-lg w-[95%] md:w-[90%] lg:w-[35%] shadow-md hover:shadow-xl max-h-[90vh] flex-col">
        
         <NewProfileModal onProfileCreated={handleProfileCreated} />
         <ProfileList profiles={userDetails} onProfileSelect={handleProfileSelect} />

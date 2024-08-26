@@ -1,28 +1,27 @@
 import { useState } from "react";
-import { Button, Modal, Form, Input, Select, notification } from "antd";
+import { Button, Modal, Form, Input, Select, notification, Tooltip } from "antd";
 import {
   AuditOutlined,
   BankOutlined,
   ContactsOutlined,
+  EditOutlined,
   MailOutlined,
   PercentageOutlined,
   ProjectOutlined,
 } from "@ant-design/icons";
 import currencies from "../../Currencies/currencies.json";
 
-const NewProfileModal = ({text,  onProfileCreated }) => {
-
+const UpdateProfileModal = ({ text, onProfileUpdated, initialProfileData }) => {
   const token = localStorage.getItem("token");
-  const vendor_id = localStorage.getItem('selected_vendor_id')
-  const [profileName, setProfileName] = useState("");
-  const [address, setAddress] = useState("");
-  const [tinNumber, setTin] = useState("");
-  const [grNumber, setGR] = useState("");
-  const [accountName, setAccountName] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-  const [bank, setBank] = useState("");
-  const [currency, setCurrency] = useState("");
-  const [vat, setVAT] = useState(0);
+  const [profileName, setProfileName] = useState(initialProfileData.profile_name || "");
+  const [address, setAddress] = useState(initialProfileData.address || "");
+  const [tinNumber, setTin] = useState(initialProfileData.tin_number || "");
+  const [grNumber, setGR] = useState(initialProfileData.gr_number || "");
+  const [accountName, setAccountName] = useState(initialProfileData.account_name || "");
+  const [accountNumber, setAccountNumber] = useState(initialProfileData.account_number || "");
+  const [bank, setBank] = useState(initialProfileData.account_bank || "");
+  const [currency, setCurrency] = useState(initialProfileData.currency || "");
+  const [vat, setVAT] = useState(initialProfileData.vat || 0);
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -32,20 +31,19 @@ const NewProfileModal = ({text,  onProfileCreated }) => {
     setLoading(false);
   };
 
-  const newProfile = async () => {
+  const updateProfile = async () => {
     setLoading(true);
     try {
       const response = await fetch(
-        'https://bliss-bliss.vercel.app/api/v1/profile',
+        `https://bliss-bliss.vercel.app/api/v1/profiles/${initialProfileData.profile_id}`,
         {
-          method: 'POST',
+          method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             profile_name: profileName,
-            vendor_id: vendor_id,
             tin_number: tinNumber,
             gr_number: grNumber,
             address: address,
@@ -58,48 +56,51 @@ const NewProfileModal = ({text,  onProfileCreated }) => {
         }
       );
 
-      if (response.status === 409) {
-        notification.error({
-          message: 'Profile already exists',
-          description: 'A Profile with this name already exists. Please choose a different name.',
-        });
-        return;
-      }
-
       if (!response.ok) {
-        throw new Error('Failed to create profile');
+        throw new Error('Failed to update profile');
       }
 
       const data = await response.json();
       notification.success({
-        message: 'Profile created successfully',
-        description: `Profile created successfully: ${data.profile_name}`,
+        message: 'Profile updated successfully',
+        description: `Profile updated successfully: ${data.profile_name}`,
       });
 
       setOpen(false);
+      onProfileUpdated();
     } catch (err) {
       notification.error({
-        message: 'Error Creating Profile',
+        message: 'Error Updating Profile',
         description: err.message,
       });
     } finally {
       setLoading(false);
+      setProfileName("")
+      setAccountName("")
+      setAccountNumber("")
+      setAddress("")
+      setBank("")
+      setCurrency("")
+      setTin("")
+      setCurrency("")
+      setVAT("")
+      setGR("")
     }
   };
 
   const handleSubmit = () => {
-    newProfile();
-    onProfileCreated()
-    
+    updateProfile();
   };
 
   return (
     <>
-      <Button type="primary" onClick={showLoading} size="large" className="w-fit">
-       {text?"Create New Profile":"Create Now"} 
+    <Tooltip title="Edit Profile" color="#777">
+      <Button type="text" onClick={showLoading} size="large" className="w-fit border-[#777] text-[#777]">
+     <EditOutlined cla/>
       </Button>
+      </Tooltip>
       <Modal
-        title={<p className="main-font text-xl font-black">New Profile</p>}
+        title={<p className="main-font text-xl font-black">Update Profile</p>}
         footer={
           <Button
             type="primary"
@@ -109,14 +110,14 @@ const NewProfileModal = ({text,  onProfileCreated }) => {
             onClick={handleSubmit}
             loading={loading}
           >
-            Create
+            Update
           </Button>
         }
         open={open}
         onCancel={() => setOpen(false)}
       >
         <Form
-          name="newProfileForm"
+          name="updateProfileForm"
           initialValues={{ remember: true }}
           layout="horizontal"
           className="flex flex-col items-center"
@@ -269,4 +270,4 @@ const NewProfileModal = ({text,  onProfileCreated }) => {
   );
 };
 
-export default NewProfileModal;
+export default UpdateProfileModal;

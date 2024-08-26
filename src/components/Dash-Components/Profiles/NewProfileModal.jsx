@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Button, Modal, Form, Input, Select, notification } from "antd";
+import { Button, Modal, Form, Input, Select, notification, Tooltip } from "antd";
 import {
   AuditOutlined,
   BankOutlined,
   ContactsOutlined,
   MailOutlined,
   PercentageOutlined,
+  PlusOutlined,
   ProjectOutlined,
 } from "@ant-design/icons";
 import currencies from "../../Currencies/currencies.json";
@@ -84,6 +85,16 @@ const NewProfileModal = ({ text, onProfileCreated }) => {
       });
     } finally {
       setLoading(false);
+      setProfileName("")
+      setAccountName("")
+      setAccountNumber("")
+      setAddress("")
+      setBank("")
+      setCurrency("")
+      setTin("")
+      setCurrency("")
+      setVAT("")
+      setGR("")
     }
   };
 
@@ -100,7 +111,7 @@ const NewProfileModal = ({ text, onProfileCreated }) => {
         size="large"
         className="w-fit"
       >
-        {text ? "Create New Profile" : "Create Now"}
+       <PlusOutlined/> {!text ? "Create New Profile" : "Create Now"}
       </Button>
       <Modal
         title={<p className="main-font text-xl font-black">New Profile</p>}
