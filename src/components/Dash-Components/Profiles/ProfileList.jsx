@@ -1,13 +1,14 @@
 import React from "react";
 import { AuditOutlined, PercentageOutlined } from "@ant-design/icons";
 import { List, Space } from "antd";
-
+import propTypes from "prop-types";
 const IconText = ({ icon, text }) => (
   <Space>
     {React.createElement(icon)}
     {text}
   </Space>
 );
+
 
 const ProfileList = ({ profiles, onProfileSelect }) => {
   return (
@@ -18,9 +19,6 @@ const ProfileList = ({ profiles, onProfileSelect }) => {
       itemLayout="vertical"
       size="large"
       pagination={{
-        onChange: (page) => {
-          console.log(page);
-        },
         pageSize: 5,
       }}
       dataSource={profiles || [{}]}
@@ -39,12 +37,10 @@ const ProfileList = ({ profiles, onProfileSelect }) => {
               key="list-vertical-message"
             />,
           ]}
-          onClick={() => onProfileSelect(item)} 
+          onClick={() => onProfileSelect(item)}
         >
           <List.Item.Meta
-            title={
-              <a className="body-font font-bold">{item.profile_name}</a>
-            }
+            title={<a className="body-font font-bold">{item.profile_name}</a>}
             description={item.address}
           />
         </List.Item>

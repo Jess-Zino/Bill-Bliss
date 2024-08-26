@@ -90,7 +90,7 @@ const DeleteProfileModal = ({ profileId, onProfileDeleted,profileName }) => {
 
 export default DeleteProfileModal;
 DeleteProfileModal.propTypes = {
-  profileId : propTypes.string.isRequired,
+  profileId : propTypes.number.isRequired,
    onProfileDeleted: propTypes.func,
    profileName : propTypes.string.isRequired
 }
