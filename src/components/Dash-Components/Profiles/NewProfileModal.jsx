@@ -10,7 +10,7 @@ import {
 } from "@ant-design/icons";
 import currencies from "../../Currencies/currencies.json";
 
-const NewProfileModal = () => {
+const NewProfileModal = ({text,  onProfileCreated }) => {
 
   const token = localStorage.getItem("token");
   const vendor_id = localStorage.getItem('selected_vendor_id')
@@ -89,12 +89,14 @@ const NewProfileModal = () => {
 
   const handleSubmit = () => {
     newProfile();
+    onProfileCreated()
+    
   };
 
   return (
     <>
-      <Button type="primary" onClick={showLoading}>
-        Create Now
+      <Button type="primary" onClick={showLoading} size="large" className="w-fit">
+       {text?"Create New Profile":"Create Now"} 
       </Button>
       <Modal
         title={<p className="main-font text-xl font-black">New Profile</p>}

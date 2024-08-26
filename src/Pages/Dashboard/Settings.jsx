@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Bento from "../../../components/Dashboard/Bento";
+import Bento from "../../components/Dashboard/Bento";
 
 const Settings = () => {
   const user_id = localStorage.getItem("user_id");

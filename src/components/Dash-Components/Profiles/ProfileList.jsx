@@ -9,11 +9,14 @@ const IconText = ({ icon, text }) => (
   </Space>
 );
 
-const ProfileList = ({ profiles }) => {
+const ProfileList = ({ profiles, onProfileSelect }) => {
   return (
     <List
-      itemLayout="horizontal"
-      size="small"
+      style={{
+        width: "100%",
+      }}
+      itemLayout="vertical"
+      size="large"
       pagination={{
         onChange: (page) => {
           console.log(page);
@@ -23,11 +26,11 @@ const ProfileList = ({ profiles }) => {
       dataSource={profiles || [{}]}
       renderItem={(item) => (
         <List.Item
-          key={item.title}
+          key={item.id}
           actions={[
             <IconText
               icon={AuditOutlined}
-              text={item.gr}
+              text={item.gr_number}
               key="list-vertical-like-o"
             />,
             <IconText
@@ -36,12 +39,14 @@ const ProfileList = ({ profiles }) => {
               key="list-vertical-message"
             />,
           ]}
+          onClick={() => onProfileSelect(item)} // Trigger the callback when a profile is clicked
         >
           <List.Item.Meta
-            title={<a href={item.title}>{item.title}</a>}
+            title={
+              <a className="body-font font-bold">{item.profile_name}</a>
+            }
             description={item.address}
           />
-          {item.content}
         </List.Item>
       )}
     />

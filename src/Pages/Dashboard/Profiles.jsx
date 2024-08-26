@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import Bento from "../../../components/Dashboard/Bento";
-import ProfileList from "../../../components/Dash-Components/Profiles/ProfileList";
-import { Empty, Button } from "antd";
-import NewProfileModal from "../../../components/Dash-Components/Profiles/NewProfileModal";
+import Bento from "../../components/Dashboard/Bento";
+import ProfileList from "../../components/Dash-Components/Profiles/ProfileList";
+import { Empty } from "antd";
+import NewProfileModal from "../../components/Dash-Components/Profiles/NewProfileModal";
 const Profiles = () => {
   const vendor_id = localStorage.getItem("selected_vendor_id");
   const token = localStorage.getItem("token");
@@ -48,7 +48,7 @@ const Profiles = () => {
   }, []);
 
   return (
-    <div className="flex flex-row justify-around">
+    <div className="flex flex-row justify-around w-[100vw]">
       <Bento
         content={
           <div className="flex flex-col items-center justify-around gap-9">
@@ -78,24 +78,22 @@ const Profiles = () => {
                </div>
           </div>
         }
-        size="65"
+        size="58"
         height="80"
       />
-      <div className="flex flex-col items-center justify-around">
         <Bento
           content={
             profileNotFound ? (
               <p>No profiles to display.</p>
             ) : (
               <>
-                <Bento content={<ProfileList profiles={userDetails} />} size="100" height="57" />
+              <ProfileList profiles={userDetails} />
               </>
             )
           }
-          size="100"
-          height="77"
+          size="30"
+          height="80"
         />
-      </div>
     </div>
   );
 };

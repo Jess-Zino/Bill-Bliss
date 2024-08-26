@@ -34,19 +34,18 @@ const Dashboard = ({ dashContent }) => {
           <Logout />
         </div>
       </Sider>
-      <Layout className="ml-[10px] bg-[#f5f7fb]">
+      <Layout className="ml-[10px] bg-[#f5f7fb] min-w-[80vw]">
         <DashboardHeader collapse={handleCollapse} iscollapsed={collapsed} />
         <Content
-          className="mt-[20px] mb-[10px]"
-          style={{
-            marginLeft: !collapsed ? "0px" : "0px",
-          }}
+          className="my-6 "
+         
         >
           {dashContent}
         </Content>
         <Footer
           style={{
             textAlign: "center",
+            background:'#f5f7fb'
           }}
         >
           Bill Bliss ©{new Date().getFullYear()} Created by ❤️Jessica & Joseph❤️
