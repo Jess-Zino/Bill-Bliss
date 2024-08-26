@@ -6,7 +6,7 @@ import {
   SettingOutlined,
   MailOutlined,
   ShopOutlined,
-
+  AuditOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 const SideNav = () => {
@@ -21,26 +21,31 @@ const SideNav = () => {
 
     {
       key: "2",
-      icon: <FileTextOutlined className="text-white" />,
-      label: "Reports",
+      icon: <AuditOutlined className="text-white" />,
+      label: "Invoices",
     },
     {
       key: "3",
+      icon: <FileTextOutlined className="text-white" />,
+      label: "Quotes",
+    },
+    {
+      key: "4",
       icon: <UserOutlined className="text-white" />,
       label: "Profiles",
     },
     {
-      key: "4",
+      key: "5",
       icon: <MailOutlined className="text-white" />,
       label: "Mail",
     },
     {
-      key: "5",
+      key: "6",
       icon: <ShopOutlined className="text-white" />,
       label: "Organizations",
     },
     {
-      key: "6",
+      key: "7",
       icon: <SettingOutlined className="text-white" />,
       label: "Settings",
     },

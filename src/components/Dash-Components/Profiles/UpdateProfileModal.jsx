@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Button, Modal, Form, Input, Select, notification, Tooltip } from "antd";
+import {
+  Button,
+  Modal,
+  Form,
+  Input,
+  Select,
+  notification,
+  Tooltip,
+} from "antd";
 import {
   AuditOutlined,
   BankOutlined,
@@ -10,15 +18,22 @@ import {
   ProjectOutlined,
 } from "@ant-design/icons";
 import currencies from "../../Currencies/currencies.json";
+import propTypes from "prop-types";
 
-const UpdateProfileModal = ({ text, onProfileUpdated, initialProfileData }) => {
+const UpdateProfileModal = ({ onProfileUpdated, initialProfileData }) => {
   const token = localStorage.getItem("token");
-  const [profileName, setProfileName] = useState(initialProfileData.profile_name || "");
+  const [profileName, setProfileName] = useState(
+    initialProfileData.profile_name || ""
+  );
   const [address, setAddress] = useState(initialProfileData.address || "");
   const [tinNumber, setTin] = useState(initialProfileData.tin_number || "");
   const [grNumber, setGR] = useState(initialProfileData.gr_number || "");
-  const [accountName, setAccountName] = useState(initialProfileData.account_name || "");
-  const [accountNumber, setAccountNumber] = useState(initialProfileData.account_number || "");
+  const [accountName, setAccountName] = useState(
+    initialProfileData.account_name || ""
+  );
+  const [accountNumber, setAccountNumber] = useState(
+    initialProfileData.account_number || ""
+  );
   const [bank, setBank] = useState(initialProfileData.account_bank || "");
   const [currency, setCurrency] = useState(initialProfileData.currency || "");
   const [vat, setVAT] = useState(initialProfileData.vat || 0);
@@ -37,9 +52,9 @@ const UpdateProfileModal = ({ text, onProfileUpdated, initialProfileData }) => {
       const response = await fetch(
         `https://bliss-bliss.vercel.app/api/v1/profiles/${initialProfileData.profile_id}`,
         {
-          method: 'PATCH',
+          method: "PATCH",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
@@ -57,12 +72,12 @@ const UpdateProfileModal = ({ text, onProfileUpdated, initialProfileData }) => {
       );
 
       if (!response.ok) {
-        throw new Error('Failed to update profile');
+        throw new Error("Failed to update profile");
       }
 
       const data = await response.json();
       notification.success({
-        message: 'Profile updated successfully',
+        message: "Profile updated successfully",
         description: `Profile updated successfully: ${data.profile_name}`,
       });
 
@@ -70,21 +85,21 @@ const UpdateProfileModal = ({ text, onProfileUpdated, initialProfileData }) => {
       onProfileUpdated();
     } catch (err) {
       notification.error({
-        message: 'Error Updating Profile',
+        message: "Error Updating Profile",
         description: err.message,
       });
     } finally {
       setLoading(false);
-      setProfileName("")
-      setAccountName("")
-      setAccountNumber("")
-      setAddress("")
-      setBank("")
-      setCurrency("")
-      setTin("")
-      setCurrency("")
-      setVAT("")
-      setGR("")
+      setProfileName("");
+      setAccountName("");
+      setAccountNumber("");
+      setAddress("");
+      setBank("");
+      setCurrency("");
+      setTin("");
+      setCurrency("");
+      setVAT("");
+      setGR("");
     }
   };
 
@@ -94,10 +109,15 @@ const UpdateProfileModal = ({ text, onProfileUpdated, initialProfileData }) => {
 
   return (
     <>
-    <Tooltip title="Edit Profile" color="#777">
-      <Button type="text" onClick={showLoading} size="large" className="w-fit border-[#777] text-[#777]">
-     <EditOutlined cla/>
-      </Button>
+      <Tooltip title="Edit Profile" color="#777">
+        <Button
+          type="text"
+          onClick={showLoading}
+          size="large"
+          className="w-fit border-[#777] text-[#777]"
+        >
+          <EditOutlined />
+        </Button>
       </Tooltip>
       <Modal
         title={<p className="main-font text-xl font-black">Update Profile</p>}
@@ -271,3 +291,7 @@ const UpdateProfileModal = ({ text, onProfileUpdated, initialProfileData }) => {
 };
 
 export default UpdateProfileModal;
+UpdateProfileModal.propTypes = {
+  onProfileUpdated: propTypes.func,
+  initialProfileData: propTypes.object,
+};

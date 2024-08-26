@@ -5,12 +5,12 @@
     "description": "United Arab Emirates"
   },
   {
-    "value":"AFN" ,
+    "value": "AFN",
     "label": "AFN",
     "description": "Afghanistan"
   },
   {
-    "value":"ALL" ,
+    "value": "ALL",
     "label": "ALL",
     "description": "Albania"
   },
@@ -20,12 +20,12 @@
     "description": "Armenia"
   },
   {
-    "value":"ANG" ,
+    "value": "ANG",
     "label": "ANG",
     "description": "Netherlands Antilles"
   },
   {
-    "value":"AOA" ,
+    "value": "AOA",
     "label": "AOA",
     "description": "Angola"
   },
@@ -35,7 +35,7 @@
     "description": "Argentina"
   },
   {
-    "value":"AUD" ,
+    "value": "AUD",
     "label": "AUD",
     "description": "Australia"
   },
@@ -45,7 +45,7 @@
     "description": "Aruba"
   },
   {
-    "value":"AZN" ,
+    "value": "AZN",
     "label": "AZN",
     "description": "Azerbaijan"
   },
@@ -60,12 +60,12 @@
     "description": "Barbados"
   },
   {
-    "value":"BDT" ,
+    "value": "BDT",
     "label": "BDT",
     "description": "Bangladesh"
   },
   {
-    "value":"BGN" ,
+    "value": "BGN",
     "label": "BGN",
     "description": "Bulgaria"
   },
@@ -75,47 +75,47 @@
     "description": "Bahrain"
   },
   {
-    "value":"BIF" ,
+    "value": "BIF",
     "label": "BIF",
     "description": "Burundi"
   },
   {
-    "value":"BMD" ,
+    "value": "BMD",
     "label": "BMD",
     "description": "Bermuda"
   },
   {
-    "value":"BND" ,
+    "value": "BND",
     "label": "BND",
     "description": "Brunei"
   },
   {
-    "value":"BOB" ,
+    "value": "BOB",
     "label": "BOB",
     "description": "Bolivia"
   },
   {
-    "value":"BRL" ,
+    "value": "BRL",
     "label": "BRL",
     "description": "Brazil"
   },
   {
-    "value":"BSD" ,
+    "value": "BSD",
     "label": "BSD",
     "description": "Bahamas"
   },
   {
-    "value":"BTN" ,
+    "value": "BTN",
     "label": "BTN",
     "description": "Bhutan"
   },
   {
-    "value":"BWP" ,
+    "value": "BWP",
     "label": "BWP",
     "description": "Botswana"
   },
   {
-    "value":"BYN" ,
+    "value": "BYN",
     "label": "BYN",
     "description": "Belarus"
   },
@@ -135,37 +135,37 @@
     "description": "Democratic Republic of the Congo"
   },
   {
-    "value":"CHF" ,
+    "value": "CHF",
     "label": "CHF",
     "description": "Switzerland"
   },
   {
-    "value":"CLP" ,
+    "value": "CLP",
     "label": "CLP",
     "description": "Chile"
   },
   {
-    "value":"CNY" ,
+    "value": "CNY",
     "label": "CNY",
     "description": "China"
   },
   {
-    "value":"COP" ,
+    "value": "COP",
     "label": "COP",
     "description": "Colombia"
   },
   {
-    "value":"CRC" ,
+    "value": "CRC",
     "label": "CRC",
     "description": "Costa Rica"
   },
   {
-    "value":"CUP" ,
+    "value": "CUP",
     "label": "CUP",
     "description": "Cuba"
   },
   {
-    "value":"CVE" ,
+    "value": "CVE",
     "label": "CVE",
     "description": "Cape Verde"
   },
@@ -180,7 +180,7 @@
     "description": "Djibouti"
   },
   {
-    "value":"DKK" ,
+    "value": "DKK",
     "label": "DKK",
     "description": "Denmark"
   },
@@ -190,47 +190,47 @@
     "description": "Dominican Republic"
   },
   {
-    "value":"DZD" ,
+    "value": "DZD",
     "label": "DZD",
     "description": "Algeria"
   },
   {
-    "value":"EGP" ,
+    "value": "EGP",
     "label": "EGP",
     "description": "Egypt"
   },
   {
-    "value":"ERN" ,
+    "value": "ERN",
     "label": "ERN",
     "description": "Eritrea"
   },
   {
-    "value":"ETB" ,
+    "value": "ETB",
     "label": "ETB",
     "description": "Ethiopia"
   },
   {
-    "value":"EUR" ,
+    "value": "EUR",
     "label": "EUR",
     "description": "European Union"
   },
   {
-    "value":"FJD" ,
+    "value": "FJD",
     "label": "FJD",
     "description": "Fiji"
   },
   {
-    "value":"FKP" ,
+    "value": "FKP",
     "label": "FKP",
     "description": "Falkland Islands"
   },
   {
-    "value":"FOK" ,
+    "value": "FOK",
     "label": "FOK",
     "description": "Faroe Islands"
   },
   {
-    "value":"GBP" ,
+    "value": "GBP",
     "label": "GBP",
     "description": "United Kingdom"
   },
@@ -265,27 +265,27 @@
     "description": "Guinea"
   },
   {
-    "value":"GTQ" ,
+    "value": "GTQ",
     "label": "GTQ",
     "description": "Guatemala"
   },
   {
-    "value":"GYD" ,
+    "value": "GYD",
     "label": "GYD",
     "description": "Guyana"
   },
   {
-    "value":"HKD" ,
+    "value": "HKD",
     "label": "HKD",
     "description": "Hong Kong"
   },
   {
-    "value":"HNL" ,
+    "value": "HNL",
     "label": "HNL",
     "description": "Honduras"
   },
   {
-    "value":"HRK" ,
+    "value": "HRK",
     "label": "HRK",
     "description": "Croatia"
   },
@@ -490,7 +490,7 @@
     "description": "Mexico"
   },
   {
-    "value":"MYR",
+    "value": "MYR",
     "label": "MYR",
     "description": "Malaysia"
   },
@@ -505,7 +505,7 @@
     "description": "Namibia"
   },
   {
-    "value":"NGN",
+    "value": "NGN",
     "label": "NGN",
     "description": "Nigeria"
   },
@@ -670,7 +670,6 @@
     "description": "Thailand"
   },
 
- 
   {
     "value": "TJS",
     "label": "TJS",

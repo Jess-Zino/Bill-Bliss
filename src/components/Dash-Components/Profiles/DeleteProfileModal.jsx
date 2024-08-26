@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Button, Modal, notification, Tooltip } from "antd";
+import {useNavigate} from'react-router-dom'
 import propTypes from "prop-types";
 import { DeleteOutlined } from "@ant-design/icons";
-const DeleteProfileModal = ({ profileId, onProfileDeleted,profileName }) => {
+const DeleteProfileModal = ({ profileId, onProfileDeleted, profileName }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate()
   const showLoading = () => {
     setOpen(true);
     setLoading(false);
@@ -25,12 +26,18 @@ const DeleteProfileModal = ({ profileId, onProfileDeleted,profileName }) => {
           },
         }
       );
-
+      if (response.status === 401){
+        notification.warning({
+          message: "Access timed out",
+          description:"Please Login again"
+        });
+        navigate("/")
+      }
       if (response.ok) {
         notification.success({
           message: "Profile deleted successfully",
         });
-        onProfileDeleted(); 
+        onProfileDeleted();
         setOpen(false);
       } else {
         throw new Error("Failed to delete profile");
@@ -47,28 +54,26 @@ const DeleteProfileModal = ({ profileId, onProfileDeleted,profileName }) => {
 
   return (
     <>
-    <Tooltip title=" Delete Profile" color="red">
-   
-      <Button
-        type="default"
-        onClick={showLoading}
-        size="large"
-        className="w-fit"
-        danger
-      >
-
-       
-       <DeleteOutlined/>
-      </Button>
+      <Tooltip title=" Delete Profile" color="red">
+        <Button
+          type="default"
+          onClick={showLoading}
+          size="large"
+          className="w-fit"
+          danger
+        >
+          <DeleteOutlined />
+        </Button>
       </Tooltip>
       <Modal
-        title={<p className="main-font text-xl font-black">Delete This Profile</p>}
+        title={
+          <p className="main-font text-xl font-black">Delete This Profile</p>
+        }
         footer={
           <div className="flex flex-row gap-4">
             <Button
               type="default"
               className="Btn body-font hover:bg-neutral-800 w-[80vw] md:w-[60vw] lg:w-[35vw]"
-              loading={loading}
               onClick={() => setOpen(false)}
             >
               Cancel
@@ -96,7 +101,7 @@ const DeleteProfileModal = ({ profileId, onProfileDeleted,profileName }) => {
 
 export default DeleteProfileModal;
 DeleteProfileModal.propTypes = {
-  profileId : propTypes.number.isRequired,
-   onProfileDeleted: propTypes.func,
-   profileName : propTypes.string.isRequired
-}
+  profileId: propTypes.number.isRequired,
+  onProfileDeleted: propTypes.func,
+  profileName: propTypes.string.isRequired,
+};

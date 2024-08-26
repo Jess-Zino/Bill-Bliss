@@ -12,6 +12,8 @@ import Report from "./Pages/Dashboard/Report";
 import Settings from "./Pages/Dashboard/Settings";
 //import Profiles from "./Pages/Dashboard/Profiles";
 import Test from "./Pages/Dashboard/Test";
+import Invoices from "./Pages/Dashboard/Invoices";
+import Quotes from "./Pages/Dashboard/Quotes";
 
 function App() {
   return (
@@ -33,9 +35,14 @@ function App() {
         element={<Dashboard dashContent={<Mail />} />}
       ></Route>
       <Route
-        path="/reports"
-        element={<Dashboard dashContent={<Report />} />}
+        path="/invoices"
+        element={<Dashboard dashContent={<Invoices />} />}
       ></Route>
+      <Route
+        path="/quotes"
+        element={<Dashboard dashContent={<Quotes />} />}
+      ></Route>
+
       <Route
         path="/settings"
         element={<Dashboard dashContent={<Settings />} />}

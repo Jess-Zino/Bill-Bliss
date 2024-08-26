@@ -8,7 +8,10 @@ const IconText = ({ icon, text }) => (
     {text}
   </Space>
 );
-
+IconText.propTypes={
+  icon:propTypes.object,
+  text:propTypes.any
+}
 
 const ProfileList = ({ profiles, onProfileSelect }) => {
   return (
@@ -28,12 +31,12 @@ const ProfileList = ({ profiles, onProfileSelect }) => {
           actions={[
             <IconText
               icon={AuditOutlined}
-              text={item.gr_number}
+              text={String(item.gr_number)}
               key="list-vertical-like-o"
             />,
             <IconText
               icon={PercentageOutlined}
-              text={item.vat}
+              text={String(item.vat)}
               key="list-vertical-message"
             />,
           ]}
@@ -50,3 +53,7 @@ const ProfileList = ({ profiles, onProfileSelect }) => {
 };
 
 export default ProfileList;
+ProfileList.propTypes ={
+  profiles: propTypes.array, 
+  onProfileSelect : propTypes.func
+}
