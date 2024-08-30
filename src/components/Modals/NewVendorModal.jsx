@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Input, Modal, Form, notification, message } from "antd";
 import { ShopOutlined } from "@ant-design/icons";
-import PropTypes from'prop-types'
+import PropTypes from "prop-types";
 
 const NewVendorModal = ({ onVendorCreated }) => {
   const token = localStorage.getItem("token");
@@ -106,6 +106,6 @@ const NewVendorModal = ({ onVendorCreated }) => {
 };
 
 export default NewVendorModal;
-NewVendorModal.propTypes={
-  onVendorCreated: PropTypes.func.isRequired, 
-}
+NewVendorModal.propTypes = {
+  onVendorCreated: PropTypes.func.isRequired,
+};

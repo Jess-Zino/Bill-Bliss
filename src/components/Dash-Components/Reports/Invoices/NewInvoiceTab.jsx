@@ -1,23 +1,32 @@
-import { Button, Descriptions, Empty } from "antd";
+import {
+  Button,
+  Descriptions,
+  Empty,
+  Form,
+  Input,
+  DatePicker,
+  message,
+} from "antd";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProfileListings from "./ProfileListings";
 
 const NewInvoiceTab = () => {
+  const username = localStorage.getItem("username");
   const vendor_id = localStorage.getItem("selected_vendor_id");
   const token = localStorage.getItem("token");
-  const [invoice, newInvoice] = useState(false);
+  const [invoice, setInvoice] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState(null);
+  const [invoice_name, setInvoiceName] = useState("");
+  const [poNum, setPONumber] = useState("");
+  const [duedate, setDueDate] = useState(null);
+
   const [loading, setLoading] = useState(true);
-  const [profileDetails, setprofileDetails] = useState(null);
+  const [profileDetails, setProfileDetails] = useState([]);
 
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
 
-  const newInvoiceClick = () => {
-    newInvoice(true);
-  };
-
-  const fetchprofileDetails = async () => {
+  const fetchProfileDetails = async () => {
     setLoading(true);
     try {
       const response = await fetch(
@@ -32,33 +41,65 @@ const NewInvoiceTab = () => {
       );
 
       if (response.status === 404) {
-        setprofileDetails([])
-        // Redirect to the profile creation page if no profiles are found
-      
-
+        setProfileDetails([]);
       } else if (!response.ok) {
         throw new Error("Failed to fetch profile details");
       } else {
         const data = await response.json();
-        setprofileDetails(data);
-        console.log(data);
+        setProfileDetails(data);
       }
     } catch (error) {
       console.error("Error fetching profile details:", error);
-      // Optional: Redirect to a specific error page or show an error message
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchprofileDetails();
+    fetchProfileDetails();
   }, []);
 
-  const handleProfileSelect = (profile) => {
-    setSelectedProfile(profile);
+  const handleProfileSelect = (profileId) => {
+    setSelectedProfile(profileId);
   };
+  const handleInvoiceSubmit = async () => {
+    const invoiceData = {
+      username: username, 
+      vendor_id: parseInt(vendor_id),
+      description: invoice_name,
+      due_date: duedate,
+      po_num: poNum,
+      profile_name: selectedProfile.profile_name.trim(),
+      message: "Invoice created successfully.",
+    };
 
+    try {
+      const response = await fetch(
+        "https://bliss-bliss.vercel.app/api/v1/invoice",
+        {
+          method: "POST",
+          headers: {
+            Authorization: ` Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(invoiceData),
+        }
+      );
+
+      if (response.ok) {
+        const responseData = await response.json();
+        message.success(responseData.message);
+        navigate("/invoices");
+      } else {
+        throw new Error("Failed to create invoice");
+      }
+    } catch (error) {
+      console.error("Error submitting invoice:", error);
+      message.error(
+        "There was an error creating the invoice. Please try again."
+      );
+    }
+  };
   const mapProfileToDescriptions = (profile) => {
     if (!profile) return [];
 
@@ -75,30 +116,10 @@ const NewInvoiceTab = () => {
         span: 1.5,
         children: profile.tin_number,
       },
-      {
-        key: "3",
-        label: "GR Number",
-        span: 1.5,
-        children: profile.gr_number,
-      },
-      {
-        key: "4",
-        label: "Address",
-        span: 3,
-        children: profile.address,
-      },
-      {
-        key: "5",
-        label: "Currency",
-        span: 1.5,
-        children: profile.currency,
-      },
-      {
-        key: "6",
-        label: "VAT",
-        span: 1.5,
-        children: profile.vat,
-      },
+      { key: "3", label: "GR Number", span: 1.5, children: profile.gr_number },
+      { key: "4", label: "Address", span: 3, children: profile.address },
+      { key: "5", label: "Currency", span: 1.5, children: profile.currency },
+      { key: "6", label: "VAT", span: 1.5, children: profile.vat },
       {
         key: "7",
         label: "Account Name",
@@ -111,12 +132,7 @@ const NewInvoiceTab = () => {
         span: 1.5,
         children: profile.account_number,
       },
-      {
-        key: "9",
-        label: "Bank",
-        span: 1.5,
-        children: profile.account_bank,
-      },
+      { key: "9", label: "Bank", span: 1.5, children: profile.account_bank },
     ];
   };
 
@@ -134,26 +150,95 @@ const NewInvoiceTab = () => {
             imageStyle={{ height: 200 }}
             description={<h1>New Invoice</h1>}
           >
-            <Button onClick={newInvoiceClick} type="primary">
+            <Button onClick={() => setInvoice(true)} type="primary">
               Create New Invoice
             </Button>
           </Empty>
         ) : (
           <>
             {selectedProfile ? (
-              <Descriptions
-                className="w-[70vw] -mx-20 lg:w-[40vw] body-font"
-                title={
-                  <div className="flex flex-row justify-between">
-                    <h1 className="main-font font-black text-3xl">Profile</h1>
-                    <div className="flex flex-row gap-2"></div>
-                  </div>
-                }
-                bordered
-                column={3}
+              <Form
+                className="w-[70vw] lg:w-[40vw] body-font"
                 layout="vertical"
-                items={descriptionItems}
-              />
+                onFinish={handleInvoiceSubmit}
+              >
+                <Form.Item
+                  label="Invoice Name"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter the invoice name",
+                    },
+                  ]}
+                >
+                  <Input
+                    placeholder="Invoice Name"
+                    value={invoice_name}
+                    onChange={(e) => {
+                      setInvoiceName(e.target.value);
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="PO Number"
+                  rules={[
+                    { required: true, message: "Please enter the PO number" },
+                  ]}
+                >
+                  <Input
+                    placeholder="PO Number"
+                    value={poNum}
+                    onChange={(e) => {
+                      setPONumber(e.target.value);
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Due Date"
+                  rules={[
+                    { required: true, message: "Please select a due date" },
+                  ]}
+                >
+                  <DatePicker
+                    style={{ width: "100%" }}
+                    value={duedate}
+                    onChange={(date) => {
+                      setDueDate(date);
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Select Profile"
+                  rules={[
+                    { required: true, message: "Please select a profile" },
+                  ]}
+                ></Form.Item>
+                <Descriptions
+                  title={
+                    <div className="flex flex-row justify-between">
+                      <h1 className="main-font font-black text-3xl">Profile</h1>
+                      <Button
+                        onClick={() => {
+                          setSelectedProfile(null);
+                        }}
+                      >
+                        Change Profile
+                      </Button>
+                    </div>
+                  }
+                  bordered
+                  column={3}
+                  layout="vertical"
+                  items={descriptionItems}
+                />
+                <Form.Item>
+                  <Button type="primary" htmlType="submit" block>
+                    Create Invoice
+                  </Button>
+                </Form.Item>
+              </Form>
+            ) : loading ? (
+              <>Loading...</>
             ) : (
               <ProfileListings
                 profiles={profileDetails}

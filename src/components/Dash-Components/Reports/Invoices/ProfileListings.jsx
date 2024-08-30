@@ -16,10 +16,14 @@ IconText.propTypes = {
   text: propTypes.any,
 };
 
-const ProfileListings = ({ profiles, onProfileSelect }) => {
+const ProfileListings = ({ profiles, onProfileSelect, selectedProfile }) => {
   return (
     <div className="flex flex-col items-center justify-center gap-10">
-        {profiles && profiles.length > 0 ?  <h1 className="body-font text-3xl font-bold">Select a Profile:</h1> :<h1 className="body-font text-3xl font-bold">Create a New Profile</h1>}
+      {profiles && profiles.length > 0 ? (
+        <h1 className="body-font text-3xl font-bold">Select a Profile:</h1>
+      ) : (
+        <h1 className="body-font text-3xl font-bold">Create a New Profile</h1>
+      )}
 
       <Row gutter={[16, 16]}>
         {profiles && profiles.length > 0 ? (
@@ -31,6 +35,7 @@ const ProfileListings = ({ profiles, onProfileSelect }) => {
                 title={<a className="body-font font-bold">{item.profile_name}</a>}
                 style={{
                   width: "100%",
+                  border: selectedProfile && selectedProfile.profile_id === item.profile_id ? "2px solid #1890ff" : "none", // Highlight selected card
                 }}
               >
                 <p>{item.address}</p>
@@ -55,16 +60,16 @@ const ProfileListings = ({ profiles, onProfileSelect }) => {
           ))
         ) : (
           <Col xs={22} sm={12} md={120}>
-            <Link to="/profiles"><Card
-              hoverable
-              onClick={() => onProfileSelect(null)} 
-              style={{
-                width: "fit-content",
-                textAlign: "center",
-              }}
-            >
-              <PlusOutlined style={{ fontSize: "48px", color: "#08c" }} />
-            </Card>
+            <Link to="/profiles">
+              <Card
+                hoverable
+                style={{
+                  width: "fit-content",
+                  textAlign: "center",
+                }}
+              >
+                <PlusOutlined style={{ fontSize: "48px", color: "#08c" }} />
+              </Card>
             </Link>
           </Col>
         )}
@@ -76,6 +81,7 @@ const ProfileListings = ({ profiles, onProfileSelect }) => {
 ProfileListings.propTypes = {
   profiles: propTypes.array,
   onProfileSelect: propTypes.func,
+  selectedProfile: propTypes.object, // New prop for selected profile
 };
 
 export default ProfileListings;
