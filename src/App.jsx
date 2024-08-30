@@ -9,12 +9,12 @@ import Home from "./Pages/Dashboard/Home";
 import Organizations from "./Pages/Dashboard/Organizations";
 import Mail from "./Pages/Dashboard/Mail";
 import Settings from "./Pages/Dashboard/Settings";
-//import Profiles from "./Pages/Dashboard/Profiles";
-import Test from "./Pages/Dashboard/Test";
+//import Test from "./Pages/Dashboard/Test";
 import Invoices from "./Pages/Dashboard/Invoices";
 import Quotes from "./Pages/Dashboard/Quotes";
 import ResetPassword from "./Pages/Auth/ResetPassword";
 import NewPassword from "./Pages/Auth/NewPassword";
+import Profiles from "./Pages/Dashboard/Profiles";
 
 function App() {
   return (
@@ -54,7 +54,7 @@ function App() {
       ></Route>
       <Route
         path="/profiles"
-        element={<Dashboard dashContent={<Test />} />}
+        element={<Dashboard dashContent={<Profiles />} />}
       ></Route>
     </Routes>
   );
