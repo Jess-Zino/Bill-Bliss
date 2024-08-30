@@ -107,7 +107,7 @@ const ResetPassword = () => {
                   Reset
                 </Button>
                 <Link
-                  to="/forgot-password"
+                  to="/"
                   className="text-[#5a7ff6] text-lg hover:text-black focus:text-black"
                 >
                   Know Your Password?
