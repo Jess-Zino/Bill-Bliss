@@ -1,6 +1,7 @@
 import React from 'react'
 
-const EditInvoice = () => {
+const EditInvoice = ({invoice}) => {
+    console.log(invoice)
   return (
     <div>
       e
