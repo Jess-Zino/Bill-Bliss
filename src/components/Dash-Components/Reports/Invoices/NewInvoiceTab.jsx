@@ -6,10 +6,12 @@ import {
   Input,
   DatePicker,
   message,
+  Spin,
 } from "antd";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProfileListings from "./ProfileListings";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const NewInvoiceTab = () => {
   const username = localStorage.getItem("username");
@@ -59,17 +61,18 @@ const NewInvoiceTab = () => {
     fetchProfileDetails();
   }, []);
 
-  const handleProfileSelect = (profileId) => {
-    setSelectedProfile(profileId);
+  const handleProfileSelect = (profile) => {
+    setSelectedProfile(profile);
   };
+
   const handleInvoiceSubmit = async () => {
     const invoiceData = {
-      username: username, 
+      username: username,
       vendor_id: parseInt(vendor_id),
       description: invoice_name,
       due_date: duedate,
       po_num: poNum,
-      profile_name: selectedProfile.profile_name.trim(),
+      profile_name: selectedProfile?.profile_name.trim(),
       message: "Invoice created successfully.",
     };
 
@@ -79,7 +82,7 @@ const NewInvoiceTab = () => {
         {
           method: "POST",
           headers: {
-            Authorization: ` Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(invoiceData),
@@ -100,45 +103,24 @@ const NewInvoiceTab = () => {
       );
     }
   };
+
   const mapProfileToDescriptions = (profile) => {
     if (!profile) return [];
 
     return [
-      {
-        key: "1",
-        label: "Profile Name",
-        span: 3,
-        children: profile.profile_name,
-      },
-      {
-        key: "2",
-        label: "TIN Number",
-        span: 1.5,
-        children: profile.tin_number,
-      },
+      { key: "1", label: "Profile Name", span: 3, children: profile.profile_name },
+      { key: "2", label: "TIN Number", span: 1.5, children: profile.tin_number },
       { key: "3", label: "GR Number", span: 1.5, children: profile.gr_number },
       { key: "4", label: "Address", span: 3, children: profile.address },
       { key: "5", label: "Currency", span: 1.5, children: profile.currency },
       { key: "6", label: "VAT", span: 1.5, children: profile.vat },
-      {
-        key: "7",
-        label: "Account Name",
-        span: 3,
-        children: profile.account_name,
-      },
-      {
-        key: "8",
-        label: "Account Number",
-        span: 1.5,
-        children: profile.account_number,
-      },
+      { key: "7", label: "Account Name", span: 3, children: profile.account_name },
+      { key: "8", label: "Account Number", span: 1.5, children: profile.account_number },
       { key: "9", label: "Bank", span: 1.5, children: profile.account_bank },
     ];
   };
 
-  const descriptionItems = selectedProfile
-    ? mapProfileToDescriptions(selectedProfile)
-    : [];
+  const descriptionItems = selectedProfile ? mapProfileToDescriptions(selectedProfile) : [];
 
   return (
     <div>
@@ -207,12 +189,6 @@ const NewInvoiceTab = () => {
                     }}
                   />
                 </Form.Item>
-                <Form.Item
-                  label="Select Profile"
-                  rules={[
-                    { required: true, message: "Please select a profile" },
-                  ]}
-                ></Form.Item>
                 <Descriptions
                   title={
                     <div className="flex flex-row justify-between">
@@ -238,7 +214,13 @@ const NewInvoiceTab = () => {
                 </Form.Item>
               </Form>
             ) : loading ? (
-              <>Loading...</>
+              <div className="flex items-center justify-center">
+                <Spin
+                  indicator={
+                    <LoadingOutlined spin style={{ fontSize: "70px" }} />
+                  }
+                />
+              </div>
             ) : (
               <ProfileListings
                 profiles={profileDetails}

@@ -1,9 +1,11 @@
 import React from 'react'
+import InvoiceListings from './InvoiceListings'
 
 const AllInvoiceTab = () => {
   return (
     <div>
-      All
+      <InvoiceListings/>
+      
     </div>
   )
 }
