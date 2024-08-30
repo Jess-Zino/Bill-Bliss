@@ -8,12 +8,13 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Home from "./Pages/Dashboard/Home";
 import Organizations from "./Pages/Dashboard/Organizations";
 import Mail from "./Pages/Dashboard/Mail";
-import Report from "./Pages/Dashboard/Report";
 import Settings from "./Pages/Dashboard/Settings";
 //import Profiles from "./Pages/Dashboard/Profiles";
 import Test from "./Pages/Dashboard/Test";
 import Invoices from "./Pages/Dashboard/Invoices";
 import Quotes from "./Pages/Dashboard/Quotes";
+import ResetPassword from "./Pages/Auth/ResetPassword";
+import NewPassword from "./Pages/Auth/NewPassword";
 
 function App() {
   return (
@@ -21,7 +22,11 @@ function App() {
       <Route path="/" element={<Login />}></Route>
       <Route path="/register" element={<Register />}></Route>
       <Route path="/confirm" element={<Confirm />}></Route>
+      <Route path="/forgot-password" element={<ResetPassword />}></Route>
+      <Route path="/new-password" element={<NewPassword />}></Route>
+
       <Route path="/vendorgroup" element={<VendorSelect />}></Route>
+
       <Route
         path="/dashboard"
         element={<Dashboard dashContent={<Home />} />}

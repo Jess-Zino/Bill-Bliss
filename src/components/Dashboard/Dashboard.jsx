@@ -3,7 +3,7 @@ import { Layout } from "antd";
 import SideNav from "./SideNav";
 import DashboardHeader from "./DashboardHeader";
 import PropTypes from "prop-types";
-import Logout from "./Logout";
+import Logout from "../Auth/Logout";
 const { Content, Footer, Sider } = Layout;
 const Dashboard = ({ dashContent }) => {
   const [collapsed, setCollapsed] = useState(false);

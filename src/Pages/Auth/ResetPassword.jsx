@@ -2,31 +2,23 @@ import loginImg from "../../images/login.avif";
 import { Form, Input, Button, notification } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import {
-  MailOutlined,
-  EyeInvisibleOutlined,
-  EyeTwoTone,
-  LockOutlined,
-} from "@ant-design/icons";
-
-const Login = () => {
+import { MailOutlined } from "@ant-design/icons";
+const ResetPassword = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const handleSubmit = async () => {
+  const handleReset = async () => {
     try {
-      // Validate input fields
-      if (!email || !password) {
+      if (!email) {
         notification.error({
-          message: "Login failed.",
-          description: "Both email and password are required.",
+          message: "Enter your email",
+          description: "Your email is required",
         });
         return;
       }
 
       const response = await fetch(
-        "https://bliss-bliss.vercel.app/api/v1/sessions",
+        "https://bliss-bliss.vercel.app/api/v1/password-reset/request",
         {
           method: "POST",
           headers: {
@@ -34,7 +26,6 @@ const Login = () => {
           },
           body: JSON.stringify({
             email: email.trim(),
-            password: password.trim(),
           }),
         }
       );
@@ -42,23 +33,19 @@ const Login = () => {
       if (!response.ok) {
         const errorData = await response.json();
         notification.error({
-          message: "Login failed.",
-          description: `Please check your credentials and try again. ${errorData}`,
+          message: "Error",
+          description: `Try again later. ${errorData.details}`,
         });
-        console.log(errorData)
+        console.log(errorData);
         return;
       }
 
-      const data = await response.json();
       notification.success({
-        message: "Login Successful",
-        description: "Welcome Back",
+        message: "Check Your Email",
+        description: "We've sent a reset link to your email",
       });
-      localStorage.setItem("username", data.username);
-      localStorage.setItem("user_id", data.user_id);
-      localStorage.setItem("token", data.access_token);
-      navigate("/vendorgroup");
-      // Handle successful login (e.g., redirect or store token)
+
+      navigate("/new-password");
     } catch (err) {
       notification.error({
         message: "Network error",
@@ -75,9 +62,12 @@ const Login = () => {
         <div className="flex flex-col gap-7">
           <div className="flex items-center flex-col gap-2">
             <h1 className="main-font text-3xl font-black md:text-4xl lg:text-5xl">
-              Welcome to Bill Bliss
+              Request a Reset
             </h1>
-            <p className="body-font text-lg">Let&apos;s get you started</p>
+            <p className="body-font text-lg">
+              Seems you&apos;ve forgotten your password, we&apos;ve got you
+              covered
+            </p>
           </div>
           {error && <div className="error-message">{error}</div>}
           <Form
@@ -85,7 +75,7 @@ const Login = () => {
             initialValues={{ remember: true }}
             layout="horizontal"
             className="flex flex-col items-center"
-            onFinish={handleSubmit}
+            onFinish={handleReset}
           >
             <Form.Item
               name="email"
@@ -106,28 +96,6 @@ const Login = () => {
               </div>
             </Form.Item>
 
-            <Form.Item name="password">
-              <div className="flex flex-col items-start">
-                <Input.Password
-                  className="w-[80vw] border-0 rounded-none border-black border-b body-font hover:border-black md:w-[60vw] lg:w-[35vw]"
-                  prefix={<LockOutlined className="text-[#5a7ff6] body-font" />}
-                  size="large"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                  placeholder="Password"
-                  iconRender={(visible) =>
-                    visible ? (
-                      <EyeTwoTone />
-                    ) : (
-                      <EyeInvisibleOutlined className="text-[#3b82f6]" />
-                    )
-                  }
-                />
-              </div>
-            </Form.Item>
-
             <Form.Item>
               <div className="flex flex-col gap-2 items-center body-font">
                 <Button
@@ -136,30 +104,21 @@ const Login = () => {
                   size="large"
                   className="Btn body-font bg-[#5a7ff6] hover:bg-neutral-800 w-[80vw] md:w-[60vw] lg:w-[35vw]"
                 >
-                  Login
+                  Reset
                 </Button>
                 <Link
                   to="/forgot-password"
                   className="text-[#5a7ff6] text-lg hover:text-black focus:text-black"
                 >
-                  Forgot Password?
+                  Know Your Password?
                 </Link>
               </div>
             </Form.Item>
           </Form>
         </div>
-        <p className="body-font text-black text-base">
-          Don&apos;t have an Account?{"  "}
-          <Link
-            to="/register"
-            className="text-[#5a7ff6] body-font font-semibold"
-          >
-            Register
-          </Link>
-        </p>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default ResetPassword;

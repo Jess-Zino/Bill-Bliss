@@ -1,40 +1,44 @@
 import loginImg from "../../images/login.avif";
 import { Form, Input, Button, notification } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import {
-  MailOutlined,
   EyeInvisibleOutlined,
   EyeTwoTone,
   LockOutlined,
 } from "@ant-design/icons";
+const NewPassword = () => {
+  const location = useLocation();
 
-const Login = () => {
-  const [email, setEmail] = useState("");
+  const getQueryParams = (search) => {
+    return new URLSearchParams(search);
+  };
+
+  const queryParams = getQueryParams(location.search);
+  const reset_token = queryParams.get("token");
   const [password, setPassword] = useState("");
+  console.log(reset_token);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const handleSubmit = async () => {
+  const handleReset = async () => {
     try {
-      // Validate input fields
-      if (!email || !password) {
+      if (!password) {
         notification.error({
-          message: "Login failed.",
-          description: "Both email and password are required.",
+          message: "Enter your email",
+          description: "Your email is required",
         });
         return;
       }
 
       const response = await fetch(
-        "https://bliss-bliss.vercel.app/api/v1/sessions",
+        `https://bliss-bliss.vercel.app/api/v1/password-reset/confirm?token=${reset_token}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email.trim(),
-            password: password.trim(),
+            new_password: password.trim(),
           }),
         }
       );
@@ -42,29 +46,25 @@ const Login = () => {
       if (!response.ok) {
         const errorData = await response.json();
         notification.error({
-          message: "Login failed.",
-          description: `Please check your credentials and try again. ${errorData}`,
+          message: "Error",
+          description: `Try again later. ${errorData.details}`,
         });
-        console.log(errorData)
+        console.log(errorData);
         return;
       }
 
-      const data = await response.json();
       notification.success({
-        message: "Login Successful",
-        description: "Welcome Back",
+        message: "Password Successfully Reset",
+        description: "Proceed to login",
       });
-      localStorage.setItem("username", data.username);
-      localStorage.setItem("user_id", data.user_id);
-      localStorage.setItem("token", data.access_token);
-      navigate("/vendorgroup");
-      // Handle successful login (e.g., redirect or store token)
+
+      navigate("/");
     } catch (err) {
       notification.error({
         message: "Network error",
         description: err,
       });
-      setError("Login failed. Please check your credentials and try again.");
+      setError("Try again Later");
     }
   };
 
@@ -75,9 +75,9 @@ const Login = () => {
         <div className="flex flex-col gap-7">
           <div className="flex items-center flex-col gap-2">
             <h1 className="main-font text-3xl font-black md:text-4xl lg:text-5xl">
-              Welcome to Bill Bliss
+              Request a Reset
             </h1>
-            <p className="body-font text-lg">Let&apos;s get you started</p>
+            <p className="body-font text-lg">Confirm Your New Password </p>
           </div>
           {error && <div className="error-message">{error}</div>}
           <Form
@@ -85,27 +85,8 @@ const Login = () => {
             initialValues={{ remember: true }}
             layout="horizontal"
             className="flex flex-col items-center"
-            onFinish={handleSubmit}
+            onFinish={handleReset}
           >
-            <Form.Item
-              name="email"
-              rules={[{ required: true, message: "Please input your Email!" }]}
-            >
-              <div className="flex flex-col items-start">
-                <Input
-                  className="w-[80vw]  body-font hover:border-black md:w-[60vw] lg:w-[35vw] border-0 rounded-none border-black border-b "
-                  type="email"
-                  size="large"
-                  placeholder="Email"
-                  prefix={<MailOutlined className="text-[#5a7ff6]" />}
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                />
-              </div>
-            </Form.Item>
-
             <Form.Item name="password">
               <div className="flex flex-col items-start">
                 <Input.Password
@@ -136,30 +117,21 @@ const Login = () => {
                   size="large"
                   className="Btn body-font bg-[#5a7ff6] hover:bg-neutral-800 w-[80vw] md:w-[60vw] lg:w-[35vw]"
                 >
-                  Login
+                  Reset
                 </Button>
                 <Link
                   to="/forgot-password"
                   className="text-[#5a7ff6] text-lg hover:text-black focus:text-black"
                 >
-                  Forgot Password?
+                  Know Your Password?
                 </Link>
               </div>
             </Form.Item>
           </Form>
         </div>
-        <p className="body-font text-black text-base">
-          Don&apos;t have an Account?{"  "}
-          <Link
-            to="/register"
-            className="text-[#5a7ff6] body-font font-semibold"
-          >
-            Register
-          </Link>
-        </p>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default NewPassword;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ProfileList from "../../components/Dash-Components/Profiles/ProfileList";
-import { Button, Descriptions, Empty, Skeleton, Spin } from "antd";
+import { Button, Descriptions, Empty,  Spin } from "antd";
 import NewProfileModal from "../../components/Dash-Components/Profiles/NewProfileModal";
 import DeleteProfileModal from "../../components/Dash-Components/Profiles/DeleteProfileModal";
 import UpdateProfileModal from "../../components/Dash-Components/Profiles/UpdateProfileModal";
