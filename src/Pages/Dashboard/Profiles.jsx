@@ -1,24 +1,28 @@
 import { useState, useEffect } from "react";
 import ProfileList from "../../components/Dash-Components/Profiles/ProfileList";
-import { Button, Descriptions, Empty,  Spin } from "antd";
+import { Button, Descriptions, Empty, Spin } from "antd";
 import NewProfileModal from "../../components/Dash-Components/Profiles/NewProfileModal";
 import DeleteProfileModal from "../../components/Dash-Components/Profiles/DeleteProfileModal";
 import UpdateProfileModal from "../../components/Dash-Components/Profiles/UpdateProfileModal";
-import { EyeInvisibleOutlined, EyeOutlined, LoadingOutlined } from "@ant-design/icons";
+import {
+  EyeInvisibleOutlined,
+  EyeOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
 
 const Profiles = () => {
   const vendor_id = localStorage.getItem("selected_vendor_id");
   const token = localStorage.getItem("token");
   const [hidden, setHidden] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [userDetails, setUserDetails] = useState(null);
+  const [profileDetails, setprofileDetails] = useState(null);
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [profileNotFound, setProfileNotFound] = useState(false);
 
   const showSkeleton = () => {
     setHidden(!hidden);
   };
-  const fetchUserDetails = async () => {
+  const fetchprofileDetails = async () => {
     setLoading(true);
     try {
       const response = await fetch(
@@ -34,16 +38,16 @@ const Profiles = () => {
 
       if (response.status === 404) {
         setProfileNotFound(true);
-        setUserDetails(null);
+        setprofileDetails(null);
       } else if (!response.ok) {
-        throw new Error("Failed to fetch user details");
+        throw new Error("Failed to fetch profile details");
       } else {
         const data = await response.json();
-        setUserDetails(data);
+        setprofileDetails(data);
         setProfileNotFound(false);
       }
     } catch (error) {
-      console.error("Error fetching user details:", error);
+      console.error("Error fetching profile details:", error);
       setProfileNotFound(true);
     } finally {
       setLoading(false);
@@ -51,19 +55,19 @@ const Profiles = () => {
   };
 
   useEffect(() => {
-    fetchUserDetails();
+    fetchprofileDetails();
   }, []);
 
   const handleProfileCreated = () => {
-    fetchUserDetails();
+    fetchprofileDetails();
   };
 
   const handleProfileDeleted = () => {
-    fetchUserDetails();
+    fetchprofileDetails();
     setSelectedProfile(null); // Deselect the profile after deletion
   };
   const handleProfileUpdated = () => {
-    fetchUserDetails();
+    fetchprofileDetails();
     setSelectedProfile(null);
   };
 
@@ -89,7 +93,11 @@ const Profiles = () => {
           <div className="flex flex-row justify-between">
             {hidden ? "*********" : profile.tin_number}{" "}
             <Button onClick={showSkeleton} disabled={loading}>
-            {hidden? <EyeOutlined />: <EyeInvisibleOutlined className="text-[#3b82f6]" />}  
+              {hidden ? (
+                <EyeOutlined />
+              ) : (
+                <EyeInvisibleOutlined className="text-[#3b82f6]" />
+              )}
             </Button>
           </div>
         ),
@@ -166,7 +174,7 @@ const Profiles = () => {
               >
                 <NewProfileModal onProfileCreated={handleProfileCreated} />
               </Empty>
-            ) : userDetails ? (
+            ) : profileDetails ? (
               <>
                 {selectedProfile ? (
                   <Descriptions
@@ -207,7 +215,7 @@ const Profiles = () => {
       <div className="bg-white p-[25px] flex  rounded-lg w-[95%] md:w-[90%] lg:w-[35%] shadow-md hover:shadow-xl max-h-[90vh] flex-col">
         <NewProfileModal onProfileCreated={handleProfileCreated} />
         <ProfileList
-          profiles={userDetails}
+          profiles={profileDetails}
           onProfileSelect={handleProfileSelect}
         />
       </div>

@@ -38,7 +38,7 @@ const Logout = () => {
   };
   return (
     <div
-      className="flex flex-row items-center justify-center p-3 gap-3 text-white font-semibold text-[12pt] hover:bg-[#5a7ffa]"
+      className="flex flex-row items-center justify-center p-3 gap-3 text-white font-semibold text-[12pt] hover:bg-[#1677ff]"
       onClick={handleLogout}
     >
       <LogoutOutlined className="text-white " />

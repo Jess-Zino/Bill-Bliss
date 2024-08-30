@@ -9,8 +9,8 @@ import Home from "./Pages/Dashboard/Home";
 import Organizations from "./Pages/Dashboard/Organizations";
 import Mail from "./Pages/Dashboard/Mail";
 import Settings from "./Pages/Dashboard/Settings";
-//import Test from "./Pages/Dashboard/Test";
-import Invoices from "./Pages/Dashboard/Invoices";
+import Test from "./Pages/Dashboard/Test";
+//import Invoices from "./Pages/Dashboard/Invoices";
 import Quotes from "./Pages/Dashboard/Quotes";
 import ResetPassword from "./Pages/Auth/ResetPassword";
 import NewPassword from "./Pages/Auth/NewPassword";
@@ -41,7 +41,7 @@ function App() {
       ></Route>
       <Route
         path="/invoices"
-        element={<Dashboard dashContent={<Invoices />} />}
+        element={<Dashboard dashContent={<Test />} />}
       ></Route>
       <Route
         path="/quotes"
